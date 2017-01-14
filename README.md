@@ -35,18 +35,23 @@
   source venv/bin/activate
   ```
   The virtual environment's name should appear before your username in the terminal prompt if it has been properly activated:```(venv) alexandra@Mereu:<current_path>$``` instead of ```alexandra@Mereu:<current_path>$```
-  
-4. Apply migrations
+
+4. Install requirements
+
+  ```
+  pip install -r requirements.txt
+  ``` 
+5. Apply migrations
 
   ```
   ./manage.py migrate
   ```
-5. Create superuser (Optional)
+6. Create superuser (Optional)
 
   ```
   ./manage.py createsuperuser
   ```
-6. Run development server
+7. Run development server
 
   ```
   ./manage.py runserver
