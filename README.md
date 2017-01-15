@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/awp2016/Libracours.svg?branch=master)](https://travis-ci.org/awp2016/Libracours)
-# Libracours
+# [Libracours](https://drive.google.com/open?id=1z4R4XMqrmVXvlhJIcYaFKoqQzIJns88wmR9dVgXdxOc)
 
 ### How to install and run (*nix friendly guide)
 #### Prerequisites
@@ -56,3 +56,10 @@
   ```
   ./manage.py runserver
   ```
+
+### Guidelines for contributors
+Before contributing please make sure you follow these guidelines:
+
+1. Configure your editor to use **spaces** instead of **tabs** and set the **tab size** to **4**.
+2. **Naming convention**: use ```UpperCamelCase``` for **class names**, ```CAPITALIZED_WITH_UNDERSCORES``` for **constants**, and ```lowercase_separated_by_underscores``` for **other names**.
+3. Use a **PEP8 validator** to ensure your code is compliant with PEP8.
