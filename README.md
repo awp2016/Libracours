@@ -41,16 +41,19 @@
   ```
   pip install -r requirements.txt
   ```
+
 5. Apply migrations
 
   ```
   ./manage.py migrate
   ```
+
 6. Create superuser (Optional)
 
   ```
   ./manage.py createsuperuser
   ```
+
 7. Run development server
 
   ```
