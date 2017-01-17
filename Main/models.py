@@ -13,3 +13,15 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birthdate = models.DateField()
     avatar = models.ImageField(upload_to=get_avatar_upload_path)
+
+class Domain(models.Model):
+    name = models.CharField(max_length=64)
+
+class StudentGroup(models.Model):
+    pass #TO DO
+
+class Group(models.Model):
+    leader = models.OneToOneField(StudentGroup, null=True, on_delete=models.SET_NULL)
+    year = models.IntegerField()
+    domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
+
