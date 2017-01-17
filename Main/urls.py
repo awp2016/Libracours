@@ -6,4 +6,5 @@ from . import views
 urlpatterns = [
     url(r'^index/$', views.IndexView.as_view(), name='index'),
     url(r'^register/$', views.RegisterView.as_view(), name='register'),
-] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    url(r'^profile/(?P<pk>\d+)/$', views.UserProfileView.as_view(), name='profile_details'),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

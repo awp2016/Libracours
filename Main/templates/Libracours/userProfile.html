@@ -1,0 +1,15 @@
+{% extends 'Libracours/base.html' %}
+
+{% block content %}
+    <h2>{{object.user.username}}</h2>
+
+    <ul>
+        <li>First Name: {{object.user.first_name}}</li>
+        <li>Last Name: {{object.user.last_name}}</li>
+        <li>Email: {{object.user.email}}</li>
+        <li>Birthdate: {{object.birthdate}}</li>
+        <li>Date Joined: {{object.user.date_joined}}</li>
+    </ul>
+
+    <img src="{{ MEDIA_URL }}{{object.avatar.url}}" alt="ceva">
+{% endblock %}

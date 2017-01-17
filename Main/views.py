@@ -1,6 +1,8 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic.detail import DetailView
+from . import models
 from . import forms
 
 
@@ -53,3 +55,12 @@ class RegisterView(View):
                 return redirect('index')
 
         return render(request, self.template_name, context)
+
+class UserProfileView(DetailView):
+
+    model = models.UserProfile
+    template_name = 'Libracours/userProfile.html'
+    
+    def get_context_data(self, **kwargs):
+        context = super(UserProfileView, self).get_context_data(**kwargs)
+        return context
