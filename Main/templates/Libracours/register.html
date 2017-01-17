@@ -1,0 +1,10 @@
+{% extends 'Libracours/base.html' %}
+
+{% block content %}
+    <form class="login-form" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ user_form.as_p }}
+        {{ user_profile_form.as_p}}
+        <button class="button" type="submit">Register</button>
+    </form>
+{% endblock %}

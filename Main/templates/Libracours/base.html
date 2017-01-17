@@ -13,6 +13,18 @@
         {% block head %} {% endblock %}
     </head>
     <body>
+        {% block errors %}
+            {% for form in forms %}
+                {% if form.errors %}
+                    {% for error in form.non_field_errors %}
+                        <div class="alert alert-danger text-center">
+                            <strong>{{ error|escape }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endfor %}
+        {% endblock %}
+
         {% block content %} {% endblock %}
     </body>
 </html>

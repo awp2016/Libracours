@@ -10,7 +10,7 @@
   wget https://bootstrap.pypa.io/get-pip.py
   sudo python get-pip.py
   ```
-  
+
 2. Install virtualenv (Optional but highly recommended)
 
   ```
@@ -29,7 +29,7 @@
   cd Libracours
   ```
 3. Create and activate the virtual environment (Optional)
-  
+
   ```
   virtualenv venv
   source venv/bin/activate
@@ -40,7 +40,7 @@
 
   ```
   pip install -r requirements.txt
-  ``` 
+  ```
 5. Apply migrations
 
   ```
@@ -62,4 +62,4 @@ Before contributing please make sure you follow these guidelines:
 
 1. Configure your editor to use **spaces** instead of **tabs** and set the **tab size** to **4**.
 2. **Naming convention**: use ```UpperCamelCase``` for **class names**, ```CAPITALIZED_WITH_UNDERSCORES``` for **constants**, and ```lowercase_separated_by_underscores``` for **other names**.
-3. Use a **PEP8 validator** to ensure your code is compliant with PEP8.
+3. Use a **PEP8 validator** to ensure your Python code is compliant with PEP8.

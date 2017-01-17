@@ -89,5 +89,6 @@ ENV/
 .ropeproject
 
 
-requirements.txt
+media/
+migrations/
 db.sqlite3
