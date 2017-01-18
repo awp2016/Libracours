@@ -25,6 +25,6 @@ class Group(models.Model):
     year = models.IntegerField()
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
 	
-class Question
+class Question(models.Model):
 	text = models.CharField(max_length=256)
 
