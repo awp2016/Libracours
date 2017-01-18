@@ -24,4 +24,7 @@ class Group(models.Model):
     leader = models.OneToOneField(StudentGroup, null=True, on_delete=models.SET_NULL)
     year = models.IntegerField()
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
+	
+class Question
+	text = models.CharField(max_length=256)
 

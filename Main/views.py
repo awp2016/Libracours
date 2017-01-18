@@ -64,3 +64,27 @@ class UserProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(UserProfileView, self).get_context_data(**kwargs)
         return context
+	
+	
+class LoginView(View):
+	context = {}
+	
+	def get(self, request):
+		context = self.context
+		context['form'] = forms.LoginForm()
+		return render(request, 'Libracours/login.html', context)
+		
+	def post(self, request):
+		context = self.context
+		form = forms.LoginForm(request.POST)
+		if form.is_valid():
+			user = authenticate(username=form.cleaned_data['username'],
+								password=form.cleaned_data['password'])
+			if user:
+				login(request=request,
+					  user=user)
+				return redirect('index')
+			else:
+				context['error_message'] = 'Wrong username or password!'
+		context['form'] = form
+		return render(request, 'Libracours/index.html', context)

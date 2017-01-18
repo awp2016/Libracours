@@ -28,3 +28,7 @@ class UserProfileForm(forms.ModelForm):
                             years=utils.FormUtils.get_birthday_years()
                         ),
         }
+
+class LoginForm(forms.Form):
+    username = forms.CharField(label="Username")
+    password = forms.CharField(label="Password", widget=forms.PasswordInput)
