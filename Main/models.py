@@ -30,15 +30,16 @@ class Student(models.Model):
     score = models.IntegerField()
 
 
-class StudentGroup(models.Model):
-    pass  # TO DO
-
-
 class Group(models.Model):
-    leader = models.OneToOneField(StudentGroup, null=True,
+    leader = models.OneToOneField(Student, null=True,
                                   on_delete=models.SET_NULL)
     year = models.IntegerField()
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
+
+
+class StudentGroup(models.Model):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
 
 
 class Question(models.Model):
