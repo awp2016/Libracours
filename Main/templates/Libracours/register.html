@@ -2,6 +2,8 @@
 
 {% load crispy_forms_tags %}
 
+{% block navbar_right %}{% endblock %}
+
 {% block content %}
     <form class="login-form" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
