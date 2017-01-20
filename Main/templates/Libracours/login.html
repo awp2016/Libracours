@@ -1,11 +1,13 @@
 {% extends 'Libracours/base.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 <div class="login-page">
     <form class="login-form" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class="button" type="submit">Login</button>
+        {{ form|crispy }}
+        <button class="btn btn-primary" type="submit">Login</button>
     </form>
 </div>
 {% endblock %}

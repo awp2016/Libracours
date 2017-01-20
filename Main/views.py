@@ -21,12 +21,14 @@ class RegisterView(View):
     context = {}
 
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('index')
+
         user_form = self.user_form_class()
         user_profile_form = self.user_profile_form_class()
         context = self.context
         context['user_form'] = user_form
         context['user_profile_form'] = user_profile_form
-        context['forms'] = (user_form, user_profile_form)
 
         return render(request, self.template_name, context)
 
@@ -37,7 +39,6 @@ class RegisterView(View):
         context = self.context
         context['user_form'] = user_form
         context['user_profile_form'] = user_profile_form
-        context['forms'] = (user_form, user_profile_form)
 
         if user_form.is_valid() and user_profile_form.is_valid():
             username = user_form.cleaned_data['username']
@@ -53,14 +54,13 @@ class RegisterView(View):
 
             user = authenticate(username=username, password=password)
             if user:
-                login(request=request, user=user)
                 messages.success(request, 'Account created successfully.')
-                return redirect('index')
+                return redirect('login')
 
         return render(request, self.template_name, context)
 
 
-class UserProfileView(DetailView):
+class UserProfileView(LoginRequiredMixin, DetailView):
 
     model = models.UserProfile
     template_name = 'Libracours/userProfile.html'
@@ -75,6 +75,9 @@ class LoginView(View):
     template_name = 'Libracours/login.html'
 
     def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('index')
+
         context = self.context
         context['form'] = forms.LoginForm()
         return render(request, self.template_name, context)
@@ -85,11 +88,9 @@ class LoginView(View):
         if form.is_valid():
             user = authenticate(username=form.cleaned_data['username'],
                                 password=form.cleaned_data['password'])
-        if user:
             login(request=request,
                   user=user)
             return redirect('index')
-        else:
-            messages.error(request, 'Wrong username or password!')
+
         context['form'] = form
         return render(request, self.template_name, context)

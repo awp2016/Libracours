@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth import authenticate
 from django.forms import extras
 from django.contrib.auth.models import User
 from . import models
@@ -16,6 +17,16 @@ class UserForm(forms.ModelForm):
             'password': forms.PasswordInput,
         }
 
+    def clean(self, *args, **kwargs):
+        password = self.cleaned_data['password']
+        confirmed_password = self.cleaned_data['confirmed_password']
+
+        if password and confirmed_password:
+            if password != confirmed_password:
+                raise forms.ValidationError('Password mismatch!')
+
+        return super(UserForm, self).clean(*args, **kwargs)
+
 
 class UserProfileForm(forms.ModelForm):
 
@@ -29,6 +40,19 @@ class UserProfileForm(forms.ModelForm):
                         ),
         }
 
+
 class LoginForm(forms.Form):
-    username = forms.CharField(label="Username")
-    password = forms.CharField(label="Password", widget=forms.PasswordInput)
+    username = forms.CharField(label='Username')
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+    def clean(self, *args, **kwargs):
+        username = self.cleaned_data['username']
+        password = self.cleaned_data['password']
+
+        if username and password:
+            user = authenticate(username=username, password=password)
+
+            if not user:
+                raise forms.ValidationError('Wrong username or password!')
+
+        return super(LoginForm, self).clean(*args, **kwargs)
