@@ -92,3 +92,27 @@ class Answer(models.Model):
     text = models.CharField(max_length=256)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     is_correct = models.BooleanField()
+
+
+class Attempt(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date = models.DateField()
+    score = models.IntegerField()
+
+
+class Quiz(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
+class QuizQuestion(models.Model):
+    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+
+
+class Teach(models.Model):
+    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
+
+
+
