@@ -9,45 +9,85 @@ def get_avatar_upload_path(instance, filename):
     return 'media/{0}/avatar/{1}'.format(username, filename)
 
 
+def get_attachment_upload_path(instance, filename):
+    username = instance.user.username
+    return 'media/{0}/attachments/%Y/%m/%d/{1}'.format(username, filename)
+
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birthdate = models.DateField()
     avatar = models.ImageField(upload_to=get_avatar_upload_path)
 
+
 class Domain(models.Model):
     name = models.CharField(max_length=64)
 
+
 class Student(models.Model):
     user_id = models.OneToOneField(UserProfile, primary_key=True,
-                                    on_delete=models.CASCADE)
+                                   on_delete=models.CASCADE)
     score = models.IntegerField()
 
+
 class StudentGroup(models.Model):
-    pass #TO DO
+    pass  # TO DO
+
 
 class Group(models.Model):
-    leader = models.OneToOneField(StudentGroup, null=True, on_delete=models.SET_NULL)
+    leader = models.OneToOneField(StudentGroup, null=True,
+                                  on_delete=models.SET_NULL)
     year = models.IntegerField()
     domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
 
+
 class Question(models.Model):
-	text = models.CharField(max_length=256)
+    text = models.CharField(max_length=256)
+
 
 class Profesor(models.Model):
     user_id = models.OneToOneField(UserProfile, primary_key=True,
-                                    on_delete=models.CASCADE)
+                                   on_delete=models.CASCADE)
+
 
 class Subject(models.Model):
     name = models.CharField(max_length=64)
     type = models.CharField(max_length=64)
 
+
 class ProfesorStudent(models.Model):
     profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
 
+
 class Post(models.Model):
-    author = models.ForeignKey(UserProfile, null=True, on_delete=models.SET_NULL)
-    prof_subject = models.ForeignKey(ProfesorStudent, null=True, on_delete=models.SET_NULL)
+    author = models.ForeignKey(UserProfile, null=True,
+                               on_delete=models.SET_NULL)
+    prof_subject = models.ForeignKey(ProfesorStudent, null=True,
+                                     on_delete=models.SET_NULL)
     date = models.DateField()
     title = models.CharField(max_length=64)
     description = models.TextField()
+
+
+class Attachment(models.Model):
+    path = models.FileField(upload_to=get_attachment_upload_path)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+
+class Comment(models.Model):
+    text = models.CharField(max_length=1024)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, null=True, on_delete=models.SET_NULL)
+
+
+class Vote(models.Model):
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    vote_type = models.BooleanField()  # True - upvote, False - downvote
+
+
+class Answer(models.Model):
+    text = models.CharField(max_length=256)
+    question = models.ForeignKey(Question, on_delete=models.CASCADE)
+    is_correct = models.BooleanField()
