@@ -1,7 +1,8 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from . import models
@@ -94,3 +95,11 @@ class LoginView(View):
 
         context['form'] = form
         return render(request, self.template_name, context)
+
+
+class LogoutView(RedirectView):
+    pattern_name = 'login'
+
+    def get_redirect_url(self, *args, **kwargs):
+        logout(self.request)
+        return super(LogoutView, self).get_redirect_url(*args, **kwargs)
