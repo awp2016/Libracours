@@ -67,11 +67,23 @@
 
   ```
   $ cd <project_directory>
-  $ docker run -it --name="libracours" \
-      --volume=<absolute-path-to-project>./:/var/local/libracours \
+  $ docker run -it --rm --name="libracours" \
+      --volume=<absolute-path-to-project>:/var/local/libracours \
       -p 8000:8000 cornel/libracours
   ```
 3. Open website on [localhost](http://localhost:8000).
+
+#### Running interactive console
+
+  ```
+  $ cd <project_directory>
+  $ docker run -it --rm --name="libracours" \
+      --volume=<absolute-path-to-project>:/var/local/libracours \
+      -p 8000:8000 --entrypoint=/bin/sh cornel/libracours
+  # python manage.py migrate
+  # python manage.py createsuperuser
+  # python manage.py runserver 0.0.0.0:8000
+  ```
 
 ### Guidelines for contributors
 Before contributing please make sure you follow these guidelines:
