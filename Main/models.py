@@ -113,12 +113,12 @@ class Group(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=64)
-    description = HTMLField()
+    description = models.TextField()
     author = models.ForeignKey(UserProfile, null=True,
                                on_delete=models.SET_NULL)
     prof_subject = models.ForeignKey(ProfessorSubject, null=True,
                                      on_delete=models.SET_NULL)
-    date = models.DateField()
+    date = models.DateField(auto_now=True)
 
     def __str__(self):
         return self.title
