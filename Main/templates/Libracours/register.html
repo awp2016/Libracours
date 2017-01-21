@@ -6,9 +6,13 @@
 
 {% block content %}
     <form class="login-form" method="POST" enctype="multipart/form-data">
+        <div id="register" class="col-sm-6 jumbotron" >
         {% csrf_token %}
         {{ user_form|crispy }}
         {{ user_profile_form|crispy}}
+            <br/>
         <button class="btn btn-primary" type="submit">Register</button>
+            <br/>
+        </div>
     </form>
 {% endblock %}

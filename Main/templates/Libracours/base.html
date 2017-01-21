@@ -11,7 +11,7 @@
                 href="{% static 'css/bootstrap.min.css' %}">
         <link rel="stylesheet" type="text/css"
                 href="{% static 'css/bootstrap-theme.min.css' %}">
-                <link rel="stylesheet" type="text/css"
+        <link rel="stylesheet" type="text/css"
                 href="{% static 'css/CSS.css' %}">
         {% block head %} {% endblock %}
     </head>
@@ -34,11 +34,16 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
                     {% block navbar_right %}
-                        <ul class="nav navbar-nav navbar-right">
+
+
+                        <ul id="SignUp" class="nav navbar-nav navbar-right">
                             <li><a href="{% url 'logout' %}">Sign out</a></li>
                         </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            <h1 style="color:#2AC3DE" >Hello, {{ username }}</h1>
+                        </ul>
+
                     {% endblock %}
                 </div><!-- /.navbar-collapse -->
               </div><!-- /.container-fluid -->

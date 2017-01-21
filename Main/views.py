@@ -1,3 +1,4 @@
+# coding=utf-8
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -5,6 +6,7 @@ from django.views import View
 from django.views.generic.base import RedirectView
 from django.views.generic.detail import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponse
 from . import models
 from . import forms
 
@@ -14,6 +16,13 @@ class IndexView(LoginRequiredMixin, View):
         context = {'username': request.user.username}
         return render(request, 'Libracours/index.html', context)
 
+
+class PdfView(View):
+    def get(self, request):
+        with open(r'C:\Users\Sckipper\Desktop\Libracours\Main\static\files\Informatii_examene_343.pdf', 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='pdf')
+            response['Content-Disposition'] = 'inline;filename=file.pdf'
+            return response
 
 class RegisterView(View):
     user_form_class = forms.UserForm

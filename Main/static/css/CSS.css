@@ -2,5 +2,31 @@
     background:url('/static/images/LibracoursLOGO.png') top center no-repeat;
     background-size:conver;
     width: 200px;
-    margin:10px 40px 10px 30px;
+    margin:10px 40px 10px 45px;
+}
+
+#id_birthdate_month{
+    width:120px;
+}
+
+#id_birthdate_day{
+    width:60px;
+}
+
+#id_birthdate_year {
+    width:80px;
+}
+
+#register{
+    margin-left: 26%;
+}
+
+#SignUp{
+    margin: 17px 0px;
+    font-size: 22px;
+}
+
+#LoginButt{
+    margin: 12px 0px;
+    font-size: 22px;
 }
