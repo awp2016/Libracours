@@ -60,6 +60,17 @@
   ./manage.py runserver
   ```
 
+### Install with Docker
+
+1. Install [Docker](https://www.docker.com/)
+2. Run with basic configuration
+
+  ```
+  $ cd <project_directory>
+  $ docker run -p 8000:8000 cornel/libracours
+  ```
+3. Open website on [localhost](http://localhost:8000).
+
 ### Guidelines for contributors
 Before contributing please make sure you follow these guidelines:
 
