@@ -61,3 +61,12 @@ class LoginForm(forms.Form):
                 raise forms.ValidationError('Wrong username or password!')
 
         return super(LoginForm, self).clean(*args, **kwargs)
+
+
+class PostForm(forms.ModelForm):
+    file_field = forms.FileField(
+            widget=forms.ClearableFileInput(attrs={'multiple': True}))
+
+    class Meta:
+        model = models.Post
+        fields = ['title', 'description']

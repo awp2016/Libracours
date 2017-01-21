@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.contrib.auth.models import User
+from tinymce.models import HTMLField
 
 
 def get_avatar_upload_path(instance, filename):
@@ -68,7 +69,7 @@ class Post(models.Model):
                                      on_delete=models.SET_NULL)
     date = models.DateField()
     title = models.CharField(max_length=64)
-    description = models.TextField()
+    description = HTMLField()
 
 
 class Attachment(models.Model):

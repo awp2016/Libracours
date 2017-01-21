@@ -104,3 +104,27 @@ class LogoutView(RedirectView):
         logout(self.request)
         return super(LogoutView, self).get_redirect_url(*args, **kwargs)
 
+
+class HomeView(View):
+    def get(self, request):
+        return render(request, 'Libracours/home.html')
+
+
+class SubmitPost(LoginRequiredMixin, View):
+    template_name = 'Libracours/submitPost.html'
+    post_form_class = forms.PostForm
+
+    def get(self, request):
+        post_form = self.post_form_class()
+        context = {'form': post_form}
+        return render(request, self.template_name, context)
+
+    def post(self, request):
+        return render(request, self.template_name, {})
+        # post_form = self.post_form_class(request.POST)
+        # files = request.FILES.getlist('file_field')
+
+        # if post_form.is_valid():
+        # post = post_form.save(commit=False)
+        # post.author = request.user
+
