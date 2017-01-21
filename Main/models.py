@@ -15,7 +15,8 @@ def get_attachment_upload_path(instance, filename):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, primary_key=True,
+                                on_delete=models.CASCADE)
     birthdate = models.DateField()
     avatar = models.ImageField(upload_to=get_avatar_upload_path)
 
