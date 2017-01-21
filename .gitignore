@@ -88,9 +88,10 @@ ENV/
 # Rope project settings
 .ropeproject
 
-
+# Application's artefacts
 media/
 db.sqlite3
+static/
 
 # pycharm
 .idea/
