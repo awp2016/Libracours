@@ -19,8 +19,8 @@ class IndexView(LoginRequiredMixin, View):
 
 class PdfView(View):
     def get(self, request):
-        with open(r'C:\Users\Sckipper\Desktop\Libracours\Main\static\files\Informatii_examene_343.pdf', 'r') as pdf:
-            response = HttpResponse(pdf.read(), content_type='application/pdf')
+        with open(r'C:\Users\Sckipper\Desktop\Libracours\Main\static\files\Informatii_examene_343.pdf', 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='pdf')
             response['Content-Disposition'] = 'inline;filename=file.pdf'
             return response
 
@@ -134,7 +134,7 @@ class SubmitPost(LoginRequiredMixin, View):
 
         if post_form.is_valid():
             post = post_form.save(commit=False)
-            post.author = request.user.UserProfile
+            post.author = request.user.userProfile
             post.save()
 
             for f in files:
@@ -143,29 +143,27 @@ class SubmitPost(LoginRequiredMixin, View):
 
         return render(request, self.template_name, {})
 
-# class SubjectView(LoginRequiredMixin, View):
-#     context = {}
-#     template_name = 'Libracours/test.html'
 
-#     def getProfessorSubject(current_user):
-#         prof_id = current_user.Professor.user_id
-#         prof_subjects = Subject.objects.select_related('profesorsubject')
-#         return prof_subjects.filter(professor=prof_id)
+class SubjectView(LoginRequiredMixin, View):
+    context = {}
+    template_name = 'Libracours/test.html'
 
-#     def getStudentSubject(current_user):
-#         student_id = current_user.Student.user_id
-#         profesor_subject = Subject.objects.select_related('profesorsubject')
-#         teachesGroup_subject = profesor_subject.select_related('teachesroup')
-#         group_subject =  teachesGroup_subject.select_related('group')
-#         student_subject = group_subject.select_related('studentgroup')
-#         return student_subject.filter(student=student_id)
+    # def getStudentSubject(current_user):
+    #     student_id = current_user.Student.user_id
+    #     profesor_subject = Subject.objects.select_related('profesorsubject')
+    #     teachesGroup_subject = profesor_subject.select_related('teachesroup')
+    #     group_subject =  teachesGroup_subject.select_related('group')
+    #     student_subject = group_subject.select_related('studentgroup')
+    #     return student_subject.filter(student=student_id)
 
-#     def get(self, request):
-#         current_user = request.user.UserProfile
-#         context = self.context
+    def get(self, request):
+        current_user = request.user.userProfile
+        context = self.context
+        # prof_id = current_user.Professor.subject.all()
+        # prof_subjects = models.Subject.objects.select_related('professorsubject')
 
-#         context['subjects'] = getProfessorSubject(current_user)
-#         # else:
-#         #     context['subjects'] = getStudentSubject(current_user)
+        context['subjects'] = current_user.Professor.subjects.all()
+        # else:
+        #     context['subjects'] = getStudentSubject(current_user)
 
-#         return render(request, self.template_name, context)
+        return render(request, self.template_name, context)

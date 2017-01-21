@@ -20,9 +20,15 @@ class UserProfile(models.Model):
     birthdate = models.DateField()
     avatar = models.ImageField(upload_to=get_avatar_upload_path)
 
+    def __unicode__(self):
+        return self.user.username
+
 
 class Domain(models.Model):
     name = models.CharField(max_length=64)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Student(models.Model):
@@ -30,36 +36,53 @@ class Student(models.Model):
                                    on_delete=models.CASCADE, default = None)
     score = models.IntegerField()
 
-
-class Group(models.Model):
-    leader = models.OneToOneField(Student, null=True,
-                                  on_delete=models.SET_NULL)
-    year = models.IntegerField()
-    domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
-
-
-class StudentGroup(models.Model):
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
+    def __unicode__(self):
+        return self.user.user.username
 
 
 class Question(models.Model):
     text = models.CharField(max_length=256)
 
 
-class Professor(models.Model):
-    user_id = models.OneToOneField(UserProfile, related_name='Professor',
-                                   on_delete=models.CASCADE)
-
-
 class Subject(models.Model):
     name = models.CharField(max_length=64)
     type = models.CharField(max_length=64)
 
+    def __unicode__(self):
+        return self.name
+
+
+class Professor(models.Model):
+    user_id = models.OneToOneField(UserProfile, related_name='Professor',
+                                   on_delete=models.CASCADE)
+    subjects = models.ManyToManyField(Subject, through='ProfessorSubject')
+
+
+    def __unicode__(self):
+        return self.user_id.user.username
+
 
 class ProfessorSubject(models.Model):
-    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL, default = None)
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE,
+                                  related_name='professor_subject')
+    subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL,
+                                default = None, related_name='subject')
+
+    def __unicode__(self):
+        return self.professor.user_id.user.username + ' ' + self.subject.name
+
+
+class Group(models.Model):
+    id = models.IntegerField(primary_key=True)
+    leader = models.OneToOneField(Student, null=True,
+                                  on_delete=models.SET_NULL, related_name='leader')
+    year = models.IntegerField()
+    domain = models.ForeignKey(Domain, on_delete=models.CASCADE)
+    students = models.ManyToManyField(Student)
+    professor_subjects = models.ManyToManyField(ProfessorSubject)
+
+    def __unicode__(self):
+        return str(self.id)
 
 
 class Post(models.Model):
@@ -97,6 +120,7 @@ class Answer(models.Model):
 
 class Quiz(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+    questions = models.ManyToManyField(Question)
 
 
 class Attempt(models.Model):
@@ -104,13 +128,3 @@ class Attempt(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     score = models.IntegerField()
-
-
-class QuizQuestion(models.Model):
-    quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-
-
-class Teach(models.Model):
-    group = models.ForeignKey(Group, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
