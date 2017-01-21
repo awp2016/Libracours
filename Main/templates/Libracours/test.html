@@ -1,8 +1,15 @@
 {% extends 'Libracours/base.html' %}
-
 {% block content %}
-	{%for subject in subjects %}
-		<p>{{subject.name}}</p>
-		<p>{{subject.type}}</p>
-	{%endfor%}
+
+		<div class="col-sm-4" style="background-color:lavenderblush;"><h3>Materii</h3>
+			<ul>
+            {%for subject in subjects %}
+				<li><a href="{% url 'view_subject'%}"> {{subject.name}} - {{subject.type}}</a></li>
+			{%endfor%}
+				</ul>
+			</div>
+        <br class="col-sm-8" style="background-color:lavender;">Cursuri
+        <a href="pdf">PDF-ul meu</a>
+        </div>
+
 {% endblock %}

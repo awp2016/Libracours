@@ -20,10 +20,10 @@ class UserProfile(models.Model):
     avatar = models.ImageField(upload_to=get_avatar_upload_path)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
     def __unicode__(self):
-        return self.user
+        return self.user.username
 
 
 class Domain(models.Model):
@@ -42,7 +42,7 @@ class Student(models.Model):
     score = models.IntegerField()
 
     def __str__(self):
-        return self.user.user
+        return self.user.user.username
 
     def __unicode__(self):
         return self.user.user
