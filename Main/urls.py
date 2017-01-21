@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^profile/(?P<pk>\d+)/$', views.UserProfileView.as_view(),
         name='profile_details'),
     url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
+    url(r'^submitPost/$', views.SubmitPost.as_view(), name='submit_post')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
