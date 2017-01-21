@@ -94,15 +94,15 @@ class Answer(models.Model):
     is_correct = models.BooleanField()
 
 
+class Quiz(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+
 class Attempt(models.Model):
     quiz = models.ForeignKey(Quiz, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateField()
     score = models.IntegerField()
-
-
-class Quiz(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class QuizQuestion(models.Model):
@@ -113,6 +113,3 @@ class QuizQuestion(models.Model):
 class Teach(models.Model):
     group = models.ForeignKey(Group, on_delete=models.CASCADE)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
-
-
-
