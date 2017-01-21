@@ -103,3 +103,8 @@ class LogoutView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         logout(self.request)
         return super(LogoutView, self).get_redirect_url(*args, **kwargs)
+
+
+class HomeView(View):
+    def get(self, request):
+        return render(request, 'Libracours/home.html')
