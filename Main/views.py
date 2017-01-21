@@ -141,29 +141,18 @@ class SubmitPost(LoginRequiredMixin, View):
                 attachment = models.Attachment(post=post, path=f)
                 attachment.save()
 
-        return render(request, self.template_name, {})
+        return render(request, 'Libracours/test.html', {})
 
 
 class SubjectView(LoginRequiredMixin, View):
     context = {}
     template_name = 'Libracours/test.html'
 
-    # def getStudentSubject(current_user):
-    #     student_id = current_user.Student.user_id
-    #     profesor_subject = Subject.objects.select_related('profesorsubject')
-    #     teachesGroup_subject = profesor_subject.select_related('teachesroup')
-    #     group_subject =  teachesGroup_subject.select_related('group')
-    #     student_subject = group_subject.select_related('studentgroup')
-    #     return student_subject.filter(student=student_id)
-
     def get(self, request):
         current_user = request.user.userProfile
         context = self.context
-        # prof_id = current_user.Professor.subject.all()
-        # prof_subjects = models.Subject.objects.select_related('professorsubject')
 
-        context['subjects'] = current_user.Professor.subjects.all()
-        # else:
-        #     context['subjects'] = getStudentSubject(current_user)
+        if models.Professor.objects.filter(user_id=current_user.id):
+            context['subjects'] = current_user.Professor.subjects.all()
 
         return render(request, self.template_name, context)
