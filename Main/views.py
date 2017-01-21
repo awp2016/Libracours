@@ -159,12 +159,10 @@ class SubjectView(LoginRequiredMixin, View):
     def get(self, request):
         current_user = request.user.userProfile
         context = self.context
+        # prof_id = current_user.Professor.subject.all()
+        # prof_subjects = models.Subject.objects.select_related('professorsubject')
 
-        import pdb; pdb.set_trace()
-        prof_id = current_user.Professor.user_id
-        prof_subjects = models.Subject.objects.select_related('professorsubject')
-
-        context['subjects'] = prof_subjects#.filter(professor=prof_id)
+        context['subjects'] = current_user.Professor.subjects.all()
         # else:
         #     context['subjects'] = getStudentSubject(current_user)
 
