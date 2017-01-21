@@ -91,3 +91,6 @@ ENV/
 
 media/
 db.sqlite3
+
+# pycharm
+.idea/
