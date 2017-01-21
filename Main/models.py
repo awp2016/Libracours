@@ -15,7 +15,7 @@ def get_attachment_upload_path(instance, filename):
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name = 'UserProfile', on_delete=models.CASCADE)
+    user = models.OneToOneField(User, related_name = 'userProfile', on_delete=models.CASCADE)
     birthdate = models.DateField()
     avatar = models.ImageField(upload_to=get_avatar_upload_path)
 
@@ -25,8 +25,8 @@ class Domain(models.Model):
 
 
 class Student(models.Model):
-    user_id = models.OneToOneField(UserProfile, primary_key=True,
-                                   on_delete=models.CASCADE)
+    user = models.OneToOneField(UserProfile, related_name='Student',
+                                   on_delete=models.CASCADE, default = None)
     score = models.IntegerField()
 
 
@@ -46,8 +46,8 @@ class Question(models.Model):
     text = models.CharField(max_length=256)
 
 
-class Profesor(models.Model):
-    user_id = models.OneToOneField(UserProfile, primary_key=True,
+class Professor(models.Model):
+    user_id = models.OneToOneField(UserProfile, related_name='Professor',
                                    on_delete=models.CASCADE)
 
 
@@ -56,15 +56,15 @@ class Subject(models.Model):
     type = models.CharField(max_length=64)
 
 
-class ProfesorStudent(models.Model):
-    profesor = models.ForeignKey(Profesor, on_delete=models.CASCADE)
-    subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
+class ProfessorSubject(models.Model):
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+    subject = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL, default = None)
 
 
 class Post(models.Model):
     author = models.ForeignKey(UserProfile, null=True,
                                on_delete=models.SET_NULL)
-    prof_subject = models.ForeignKey(ProfesorStudent, null=True,
+    prof_subject = models.ForeignKey(ProfessorSubject, null=True,
                                      on_delete=models.SET_NULL)
     date = models.DateField()
     title = models.CharField(max_length=64)

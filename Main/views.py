@@ -103,3 +103,4 @@ class LogoutView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         logout(self.request)
         return super(LogoutView, self).get_redirect_url(*args, **kwargs)
+
