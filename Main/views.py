@@ -17,9 +17,16 @@ class IndexView(LoginRequiredMixin, View):
         return render(request, 'Libracours/index.html', context)
 
 
+class MateriiView(View):
+    def get(self, request):
+        queryset = models.Attachment.objects.all()
+        context = {'attachments': queryset}
+        return render(request, 'Libracours/index.html', context)
+
+
 class PdfView(View):
     def get(self, request):
-        with open(r'C:\Users\Sckipper\Desktop\Libracours\Main\static\files\Informatii_examene_343.pdf', 'rb') as pdf:
+        with open(r'static\files\Informatii_examene_343.pdf', 'rb') as pdf:
             response = HttpResponse(pdf.read(), content_type='pdf')
             response['Content-Disposition'] = 'inline;filename=file.pdf'
             return response
