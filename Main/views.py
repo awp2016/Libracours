@@ -19,8 +19,8 @@ class IndexView(LoginRequiredMixin, View):
 
 class PdfView(View):
     def get(self, request):
-        with open(r'C:\Users\Sckipper\Desktop\Libracours\Main\static\files\Informatii_examene_343.pdf', 'r') as pdf:
-            response = HttpResponse(pdf.read(), content_type='application/pdf')
+        with open(r'C:\Users\Sckipper\Desktop\Libracours\Main\static\files\Informatii_examene_343.pdf', 'rb') as pdf:
+            response = HttpResponse(pdf.read(), content_type='pdf')
             response['Content-Disposition'] = 'inline;filename=file.pdf'
             return response
 
