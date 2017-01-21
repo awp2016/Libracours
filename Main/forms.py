@@ -69,4 +69,4 @@ class PostForm(forms.ModelForm):
 
     class Meta:
         model = models.Post
-        fields = ['title', 'description']
+        fields = ['prof_subject', 'title', 'description']
