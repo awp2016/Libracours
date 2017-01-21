@@ -42,7 +42,7 @@ class Student(models.Model):
     score = models.IntegerField()
 
     def __str__(self):
-        return self.user.user
+        return self.user.user.username
 
     def __unicode__(self):
         return self.user.user
