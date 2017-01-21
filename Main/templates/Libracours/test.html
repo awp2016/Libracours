@@ -1,5 +1,8 @@
 {% extends 'Libracours/base.html' %}
-{%for subject in subjects %}
-	<p>{{subject.name}}</p>
-	<p>subject.type}}</p>
-{%endfor%}
+
+{% block content %}
+	{%for subject in subjects %}
+		<p>{{subject.name}}</p>
+		<p>{{subject.type}}</p>
+	{%endfor%}
+{% endblock %}
