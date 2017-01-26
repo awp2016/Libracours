@@ -65,6 +65,7 @@ class LoginForm(forms.Form):
 
 class PostForm(forms.ModelForm):
     file_field = forms.FileField(
+            required=False,
             widget=forms.ClearableFileInput(attrs={'multiple': True}))
 
     class Meta:

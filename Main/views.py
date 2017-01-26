@@ -148,7 +148,11 @@ class SubmitPost(LoginRequiredMixin, View):
                 attachment = models.Attachment(post=post, path=f)
                 attachment.save()
 
-        return render(request, 'Libracours/test.html', {})
+            messages.success(request, 'Post created successfully.')
+            return render(request, 'Libracours/test.html', {})
+
+        context = {'form': post_form}
+        return render(request, self.template_name, context)
 
 
 class SubjectView(LoginRequiredMixin, View):
