@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 from tinymce.models import HTMLField
+from datetime import date
 
 
 def get_avatar_upload_path(instance, filename):
@@ -11,11 +12,20 @@ def get_avatar_upload_path(instance, filename):
 
 
 def get_attachment_upload_path(instance, filename):
-    return 'media/attachments/%Y/%m/%d/{0}'.format(filename)
+    current_date = date.today()
+    username = instance.post.author.user.username
+
+    return 'media/{0}/attachments/{1}/{2}/{3}/{4}'.format(username,
+                                                          current_date.year,
+                                                          current_date.month,
+                                                          current_date.day,
+                                                          filename)
 
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name = 'userProfile', on_delete=models.CASCADE)
+    user = models.OneToOneField(User,
+                                related_name='userProfile',
+                                on_delete=models.CASCADE)
     birthdate = models.DateField()
     avatar = models.ImageField(upload_to=get_avatar_upload_path)
 
@@ -38,7 +48,7 @@ class Domain(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(UserProfile, related_name='Student',
-                                   on_delete=models.CASCADE, default = None)
+                                on_delete=models.CASCADE, default=None)
     score = models.IntegerField()
 
     def __str__(self):
@@ -131,11 +141,8 @@ class Attachment(models.Model):
     path = models.FileField(upload_to=get_attachment_upload_path)
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.post
-
     def __unicode__(self):
-        return self.post
+        return self.path.name
 
 
 class Comment(models.Model):
