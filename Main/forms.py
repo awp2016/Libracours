@@ -4,7 +4,7 @@ from django.forms import extras
 from django.contrib.auth.models import User
 from . import models
 from . import utils
-
+from tinymce.widgets import TinyMCE
 
 class UserForm(forms.ModelForm):
     confirmed_password = forms.CharField(label='Confirm password',
@@ -64,6 +64,7 @@ class LoginForm(forms.Form):
 
 
 class PostForm(forms.ModelForm):
+    description = forms.CharField(widget=TinyMCE(attrs={'cols': 80, 'rows': 30}))
     file_field = forms.FileField(
             required=False,
             widget=forms.ClearableFileInput(attrs={'multiple': True}))
